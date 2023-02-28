@@ -18,8 +18,12 @@ router.get('/product/:id', productController.product_detail);
 // Seller
 router.get('/sellers', sellerController.sellers);
 
-
+router.get('/seller/:id', sellerController.seller_detail);
 
 // Catalog
+router.get('/catalogs', catalogController.catalogs);
+
+router.get('/catalog/:id', catalogController.catalog_detail);
+
 
 module.exports = router;

@@ -7,6 +7,10 @@ const SellerSchema = new Schema({
     established: { type: Date },
 });
 
+SellerSchema.virtual('url').get(function() {
+    return '/inventory/seller/' + this._id;
+});
+
 const inventory_application = mongoose.connection.useDb('inventory-application');
 
 module.exports = inventory_application.model("Seller", SellerSchema);

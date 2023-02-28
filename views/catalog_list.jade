@@ -1,0 +1,10 @@
+extends layout 
+
+block content 
+  div 
+
+    p List of catalogs:
+    ul
+      each catalog in catalogs 
+        li 
+          a(href=catalog.url) #{catalog.name}

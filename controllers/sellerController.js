@@ -6,8 +6,13 @@ exports.sellers = (req, res, next) => {
         if(err) {
             return next(err);
         }
-        console.log(results);
+        
+        res.render("seller_list", {
+            sellers: results,
+        });
     });
+}
 
-    res.send("Sellers");
+exports.seller_detail = (req, res, next) => {
+    res.send("Seller id: " + (req.params.id));
 }

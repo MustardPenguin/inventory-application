@@ -1,0 +1,10 @@
+extends layout 
+
+block content 
+  div 
+
+    p List of sellers:
+    ul
+      each seller in sellers 
+        li 
+          a(href=seller.url) #{seller.name}
