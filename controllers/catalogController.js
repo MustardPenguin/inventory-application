@@ -13,5 +13,15 @@ exports.catalogs = (req, res, next) => {
 }
 
 exports.catalog_detail = (req, res, next) => {
-    res.send("Catalog: " + req.params.id);
+    catalog
+      .findById(req.params.id)
+      .exec(function(err, results) {
+        if(err) {
+            return next(err);
+        }
+        console.log(results);
+        res.render("catalog_detail", {
+            catalog: results,
+        });
+      });
 }

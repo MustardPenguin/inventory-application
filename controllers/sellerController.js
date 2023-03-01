@@ -14,5 +14,14 @@ exports.sellers = (req, res, next) => {
 }
 
 exports.seller_detail = (req, res, next) => {
-    res.send("Seller id: " + (req.params.id));
+    Seller
+      .findById(req.params.id)
+      .exec(function(err, results) {
+        if(err) {
+            return next(err);
+        }
+        res.render("seller_detail", {
+            seller: results
+        });
+      });
 }
