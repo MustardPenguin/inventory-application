@@ -2,7 +2,7 @@ const Seller = require("../models/seller");
 
 exports.sellers = (req, res, next) => {
 
-    Seller.find().exec(function(err, results) {
+    Seller.find().sort({ name: 1 }).exec(function(err, results) {
         if(err) {
             return next(err);
         }

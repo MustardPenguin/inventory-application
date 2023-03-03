@@ -1,0 +1,12 @@
+extends layout 
+
+block content 
+  div 
+
+    p #{product.name}: #{product.description}
+    p Sold by #{product.seller.name}
+    p Catalogs: 
+    ul 
+      each catalog in product.catalog
+        li 
+          a(href=catalog.url) #{catalog.name}

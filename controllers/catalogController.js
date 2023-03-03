@@ -1,7 +1,7 @@
 const catalog = require('../models/catalog');
 
 exports.catalogs = (req, res, next) => {
-    catalog.find().exec(function(err, results) {
+    catalog.find().sort({ name: 1 }).exec(function(err, results) {
         if(err) {
             return next(err);
         }
@@ -19,7 +19,6 @@ exports.catalog_detail = (req, res, next) => {
         if(err) {
             return next(err);
         }
-        console.log(results);
         res.render("catalog_detail", {
             catalog: results,
         });

@@ -1,0 +1,14 @@
+extends layout 
+
+block content 
+  div 
+
+    p List of products:
+    ul
+      each product in products 
+        li 
+          div 
+            a(href=product.url) #{product.name}
+            |  ($#{product.price})
+            div Seller: 
+              a(href=product.seller.url) #{product.seller.name}
