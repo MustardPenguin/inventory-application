@@ -4,7 +4,7 @@ block content
   div 
 
     p #{seller.name}: #{seller.description}
-    p Established: 
+    p Established: #{seller.established_formatted}
     p List of items from this seller: 
     ul 
       each product in products 

@@ -35,14 +35,32 @@ const createProduct = (name, quantity, description, price, seller, catalog) => {
     
     product.save((err) => {
         if(err) {
-            
             console.log(err);
         }
     });
 }
 
-let seller1;
+const createSeller = (name, description, established) => {
+    const seller = new Seller({
+        name: name,
+        description: description,
+        established: established
+    });
+    console.log(seller);
+    seller.save((err) => {
+        if(err) {
+            console.log(err);
+        }
+    });
+}
 
+createSeller(
+    "Timmy",
+    "The guy that sells products...",
+    '2010-04-23'
+);
+
+/*
 async.parallel(
     {
         seller(callback) {
@@ -70,3 +88,4 @@ async.parallel(
         );
     }
 );
+*/
