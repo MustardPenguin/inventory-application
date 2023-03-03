@@ -4,17 +4,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-const inventoryRouter = require('./routes/inventory');
-
-var app = express();
 require('dotenv').config();
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set('strictQuery', false);
+//mongoose.set('strictPopulate', false);
 const mongoDB = process.env.mongo_url;
+
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+const inventoryRouter = require('./routes/inventory');
+
+var app = express();
 
 main().catch(err => console.log(err));
 async function main() {

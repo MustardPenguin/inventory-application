@@ -38,10 +38,10 @@ let seller1;
 async.parallel(
     {
         seller(callback) {
-            Seller.find({ name: "Tan" }).exec(callback);
+            Seller.find({ name: "John" }).exec(callback);
         },
         catalog(callback) {
-            Catalog.find({ name: "Furniture" }).exec(callback);
+            Catalog.find({ name: "Instruments" }).exec(callback);
         },
     },
     (err, results) => {
@@ -49,12 +49,20 @@ async.parallel(
             console.log(err);
             return err;
         }
+        const seller = results.seller[0]._id;
+        const catalog = results.catalog[0]._id;
+        if(seller == null || catalog == null) {
+            console.log("Results not found");
+            console.log("Seller: " + seller);
+            console.log("Catalog: " + catalog);
+            return;
+        }
         console.log(results);
         createProduct(
-            "Wooden chair",
+            "Guitar",
             5,
-            "A wooden chair",
-            199.99,
+            "A guitar for playing music!",
+            499.99,
             results.seller[0]._id,
             [results.catalog[0]._id]
         );
