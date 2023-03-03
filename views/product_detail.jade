@@ -6,6 +6,7 @@ block content
     p #{product.name}: #{product.description}
     p Seller: 
       a(href=product.seller.url) #{product.seller.name}
+    p Quantity: #{product.quantity}x
     p Catalogs: 
     ul 
       each catalog in product.catalog
