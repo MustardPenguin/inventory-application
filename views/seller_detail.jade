@@ -7,4 +7,7 @@ block content
     p Established: 
     p List of items from this seller: 
     ul 
-      li do later
+      each product in products 
+        li 
+          div 
+            a(href=product.url) #{product.name}

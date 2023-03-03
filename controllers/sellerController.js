@@ -1,4 +1,6 @@
 const Seller = require("../models/seller");
+const Product = require("../models/product");
+const async = require('async');
 
 exports.sellers = (req, res, next) => {
 
@@ -14,6 +16,28 @@ exports.sellers = (req, res, next) => {
 }
 
 exports.seller_detail = (req, res, next) => {
+    async.parallel(
+        {
+            seller(callback) {
+                Seller.findById(req.params.id).exec(callback);
+            },
+            products(callback) {
+                Product.find({ seller: req.params.id }).sort({ name: 1 }).exec(callback);
+            }
+        },
+        (err, results) => {
+            if(err) {
+                return next(err);
+            }
+            console.log(results);
+            res.render("seller_detail", {
+                seller: results.seller,
+                products: results.products,
+            });
+        }
+    );
+
+    /*
     Seller
       .findById(req.params.id)
       .exec(function(err, results) {
@@ -23,5 +47,5 @@ exports.seller_detail = (req, res, next) => {
         res.render("seller_detail", {
             seller: results
         });
-      });
+      });*/
 }

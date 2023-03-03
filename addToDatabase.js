@@ -15,16 +15,24 @@ async function main() {
 }
 
 const createProduct = (name, quantity, description, price, seller, catalog) => {
+    const catalogArr = [];
+    for(let i = 0; i < catalog.length; i++) {
+        catalogArr[catalogArr.length] = catalog[i]._id;
+        console.log(catalog[i].name);
+    }
+    console.log(catalogArr);
+    
     const product = new Product({
         name: name,
         quantity: quantity,
         description: description,
         price: price,
         seller: seller,
-        catalog: catalog,
+        catalog: catalogArr,
     });
 
-    //console.log(product);
+    console.log(product);
+    
     product.save((err) => {
         if(err) {
             
@@ -38,10 +46,10 @@ let seller1;
 async.parallel(
     {
         seller(callback) {
-            Seller.find({ name: "John" }).exec(callback);
+            Seller.find({ name: "Tan" }).exec(callback);
         },
         catalog(callback) {
-            Catalog.find({ name: "Instruments" }).exec(callback);
+            Catalog.find({ name: {$in: ['Electronics', 'Gaming']} }).exec(callback);
         },
     },
     (err, results) => {
@@ -49,22 +57,16 @@ async.parallel(
             console.log(err);
             return err;
         }
-        const seller = results.seller[0]._id;
-        const catalog = results.catalog[0]._id;
-        if(seller == null || catalog == null) {
-            console.log("Results not found");
-            console.log("Seller: " + seller);
-            console.log("Catalog: " + catalog);
-            return;
-        }
+        
         console.log(results);
+        
         createProduct(
-            "Guitar",
-            5,
-            "A guitar for playing music!",
-            499.99,
+            "Gaming console",
+            70,
+            "For the gamers",
+            399.99,
             results.seller[0]._id,
-            [results.catalog[0]._id]
+            results.catalog
         );
     }
 );
