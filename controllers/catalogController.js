@@ -122,7 +122,6 @@ exports.catalog_delete_post = (req, res, next) => {
                 return next(err);
             }
 
-            console.log(results);
             if(results.products.length > 0) {
                 res.render("delete_catalog", {
                     catalog: results.catalog,

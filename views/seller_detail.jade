@@ -5,6 +5,7 @@ block content
 
     p #{seller.name}: #{seller.description}
     p Established: #{seller.established ? seller.established_formatted : ""}
+    a(href='/inventory/seller/' + seller._id + '/delete') Delete seller
     p List of items from this seller: 
     ul 
       each product in products 

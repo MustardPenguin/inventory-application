@@ -1,0 +1,25 @@
+extends layout 
+
+block content 
+  div 
+    if products.length 
+      p Please delete these products first.
+
+      ul 
+        each product in products 
+          li 
+            a(href=product.url) #{product.name}
+    
+    else 
+      p Delete form for #{seller.name}
+      p Are you sure you want to delete this seller?
+
+      form(method='POST' action='')
+        div.form
+          input(
+            type='hidden'
+            name='sellerid'
+            required=true 
+            value=seller._id
+          )
+        button.btn(type='submit') Delete

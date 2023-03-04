@@ -6,6 +6,26 @@ block content
 
     form(method='POST' action='')
       div.form
-        label(for='')
-        
+        label(for='seller_name') Seller name: 
+        input(
+          type='text'
+          placeholder='Name'
+          name='seller_name'
+          required=true
+          value=(seller == undefined ? '' : seller.seller_name)
+        )
+        label(for='seller_description') Description: 
+        input(
+          type='text'
+          placeholder='Description'
+          name='seller_description'
+          required=true 
+          value=(seller == undefined ? '' : seller.seller_description)
+        )
+        label(for='seller_established') Established: 
+        input(
+          type='date'
+          name='seller_established'
+          value=(seller == undefined ? '' : seller.seller_established)
+        )
       button.btn(type='submit') Submit
