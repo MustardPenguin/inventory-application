@@ -14,3 +14,9 @@
 body > div:nth-child(2) {
   margin: 50px;
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 30%;
+}

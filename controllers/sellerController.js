@@ -22,13 +22,19 @@ exports.seller_detail = (req, res, next) => {
                 Seller.findById(req.params.id).exec(callback);
             },
             products(callback) {
-                Product.find({ seller: req.params.id }).sort({ name: 1 }).exec(callback);
+                Product.find({ seller: req.params.id }, 'name').sort({ name: 1 }).exec(callback);
             }
         },
         (err, results) => {
             if(err) {
                 return next(err);
             }
+            if(results == undefined || results.seller == null) {
+                err = new Error('Seller not found');
+                err.status = 404;
+                return next(err);
+            }
+            
             console.log(results);
             res.render("seller_detail", {
                 seller: results.seller,
@@ -36,16 +42,12 @@ exports.seller_detail = (req, res, next) => {
             });
         }
     );
-
-    /*
-    Seller
-      .findById(req.params.id)
-      .exec(function(err, results) {
-        if(err) {
-            return next(err);
-        }
-        res.render("seller_detail", {
-            seller: results
-        });
-      });*/
 }
+
+exports.seller_create = (req, res, next) => {
+    res.render("create_seller");
+}
+
+exports.seller_create_post = [
+
+];

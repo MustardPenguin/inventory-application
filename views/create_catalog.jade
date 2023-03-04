@@ -1,0 +1,24 @@
+extends layout 
+
+block content 
+  div 
+    p Create catalog
+
+    form(method='POST' action='')
+      div.form
+        label(for='catalog_name') Catalog name: 
+        input#catalog_name(
+            type='text' 
+            placeholder='Catalog name' 
+            name='catalog_name' 
+            required = true
+            value=(catalog==undefined ? '' : catalog.catalog_name)
+            )
+        label(for='catalog_description') Catalog description: 
+        textarea#catalog_description(
+            type='textarea'
+            placeholder='Catalog description'
+            name='catalog_description'
+            value=(catalog==undefined ? '' : catalog.catalog_description)
+        )
+      button.btn(type='submit') Submit

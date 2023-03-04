@@ -4,6 +4,7 @@ block content
   div 
 
     p #{catalog.name}: #{catalog.description}
+    a(href="/inventory/catalog/" + catalog._id + "/delete") Delete category
     p List of items with this catalog: 
     ul 
       each product in products 

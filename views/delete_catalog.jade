@@ -1,0 +1,25 @@
+extends layout 
+
+block content 
+  div 
+    if products.length 
+      p Please delete these products first.
+
+      ul 
+        each product in products 
+          li 
+            a(href=product.url) #{product.name}
+    
+    else 
+      p Delete form for #{catalog.name}
+      p Are you sure you want to delete this catalog?
+
+      form(method='POST' action='')
+        div.form
+          input(
+            type='hidden'
+            name='catalogid'
+            required=true 
+            value=catalog._id
+          )
+        button.btn(type='submit') Delete

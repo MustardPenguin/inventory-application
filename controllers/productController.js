@@ -24,6 +24,11 @@ exports.product_detail = (req, res, next) => {
         if(err) {
             return next(err);
         }
+        if(results == undefined) {
+            err = new Error('Product not found');
+            err.status = 404;
+            return next(err);
+        }
         res.render("product_detail", {
             product: results
         });
