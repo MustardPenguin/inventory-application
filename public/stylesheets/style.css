@@ -20,3 +20,8 @@ body > div:nth-child(2) {
   flex-direction: column;
   max-width: 30%;
 }
+
+.form-checkbox {
+  display: flex;
+  flex-wrap: wrap;
+}

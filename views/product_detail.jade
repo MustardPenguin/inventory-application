@@ -7,6 +7,7 @@ block content
     p Seller: 
       a(href=product.seller.url) #{product.seller.name}
     p Quantity: #{product.quantity}x
+    a(href='/inventory/product/' + product._id + '/delete') Delete product
     p Catalogs: 
     ul 
       each catalog in product.catalog

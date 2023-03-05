@@ -13,7 +13,13 @@ router.get('/', (req, res, next) => {
 // Products
 router.get('/products', productController.products);
 
+router.get('/product/create', productController.product_create);
+router.post('/product/create', productController.product_create_post);
+
 router.get('/product/:id', productController.product_detail);
+
+router.get('/product/:id/delete', productController.product_delete);
+router.post('/product/:id/delete', productController.product_delete_post);
 
 // Seller
 router.get('/sellers', sellerController.sellers);

@@ -1,0 +1,53 @@
+extends layout 
+
+block content 
+  div 
+    p Create product
+
+    form(method='POST' action='')
+      div.form
+        label(for='product_name') Product name: 
+        input(
+            type='text' placeholder='Product name' required=true
+            name='product_name' value=(product == undefined ? '' : product.product_name)
+        )
+        label(for='product_quantity') Quantity: 
+        input(
+            type='number' placeholder='Product quantity' required=true 
+            name='product_quantity' value=(product == undefined ? '' : product.product_quantity)
+        )
+        label(for='product_price') Price: 
+        input(
+            type='number' placeholder='Product price' required=true 
+            name='product_price' value=(product == undefined ? '' : product.product_price)
+        )
+        label(for='product_description') Description: 
+        textarea(
+            type='textarea' placeholder='Product description'
+            name='product_description' value=(product == undefined ? '' : product.product_description)
+        )
+        label(for='product_seller') Product seller: 
+        select(
+            type='select' placeholder='Select seller' required=true name='product_seller'
+        )
+            for seller in sellers 
+                option(value=seller._id selected=(product != undefined && product.product_seller == seller._id)) #{seller.name}
+        label Catalogs: 
+        div.form-checkbox 
+            for catalog in catalogs 
+                div
+                    input(
+                        type='checkbox' 
+                        name='product_catalog'
+                        id=catalog._id 
+                        value=catalog._id 
+                        checked=catalog.checked
+                    )
+                    label(for=catalog._id) #{catalog.name}
+
+      button.btn(type='submit') Submit
+
+    if errors
+        ul 
+            for error in errors.errors 
+                li #{error}
