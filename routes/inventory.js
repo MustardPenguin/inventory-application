@@ -21,6 +21,9 @@ router.get('/product/:id', productController.product_detail);
 router.get('/product/:id/delete', productController.product_delete);
 router.post('/product/:id/delete', productController.product_delete_post);
 
+router.get('/product/:id/update', productController.product_update);
+router.post('/product/:id/update', productController.product_update_post);
+
 // Seller
 router.get('/sellers', sellerController.sellers);
 
@@ -32,6 +35,9 @@ router.get('/seller/:id', sellerController.seller_detail);
 router.get('/seller/:id/delete', sellerController.seller_delete);
 router.post('/seller/:id/delete', sellerController.seller_delete_post)
 
+router.get('/seller/:id/update', sellerController.seller_update);
+router.post('/seller/:id/update', sellerController.seller_update_post);
+
 // Catalog
 router.get('/catalogs', catalogController.catalogs);
 
@@ -42,5 +48,8 @@ router.get('/catalog/:id', catalogController.catalog_detail);
 
 router.get('/catalog/:id/delete', catalogController.catalog_delete);
 router.post('/catalog/:id/delete', catalogController.catalog_delete_post);
+
+router.get('/catalog/:id/update', catalogController.catalog_update);
+router.post('/catalog/:id/update', catalogController.catalog_update_post);
 
 module.exports = router;

@@ -2,7 +2,7 @@ extends layout
 
 block content 
   div 
-    p Create product
+    p #{title ? title : "Create product"}
 
     form(method='POST' action='')
       div.form
@@ -24,8 +24,8 @@ block content
         label(for='product_description') Description: 
         textarea(
             type='textarea' placeholder='Product description'
-            name='product_description' value=(product == undefined ? '' : product.product_description)
-        )
+            name='product_description'
+        ) #{product == undefined ? '' : product.product_description}
         label(for='product_seller') Product seller: 
         select(
             type='select' placeholder='Select seller' required=true name='product_seller'

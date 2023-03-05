@@ -2,7 +2,7 @@ extends layout
 
 block content 
   div 
-    p Create catalog
+    p #{title==undefined ? 'Create seller' : title}
 
     form(method='POST' action='')
       div.form

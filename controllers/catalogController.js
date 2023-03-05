@@ -106,8 +106,6 @@ exports.catalog_delete = (req, res, next) => {
 }
 
 exports.catalog_delete_post = (req, res, next) => {
-    console.log(req.body);
-
     async.parallel(
         {
             catalog(callback) {
@@ -138,3 +136,56 @@ exports.catalog_delete_post = (req, res, next) => {
         }
     );
 };
+
+exports.catalog_update = (req, res, next) => {
+    Catalog.findById(req.params.id).exec(function(err, results) {
+        if(err) {
+            return next(err);
+        }
+        if(results == null) {
+            const error = new Error('Catalog not found');
+            error.status = 404;
+            return next(error);
+        }
+
+        res.render("create_catalog", {
+            catalog: {
+                title: "Update catalog",
+                catalog_name: results.name,
+                catalog_description: results.description
+            },
+        });
+    });
+}
+
+exports.catalog_update_post = [
+    body('catalog_name', "Catalog must not be empty")
+      .trim()
+      .isLength({ min: 1 })
+      .escape(),
+    body('catalog_description')
+      .optional({ checkFalsy: true })
+      .trim()
+      .escape(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) {
+            res.render("create_catalog", {
+                catalog: req.body,
+                errors: errors
+            });
+            return;
+        }
+        const catalog = new Catalog({
+            name: req.body.catalog_name,
+            description: req.body.catalog_description,
+            _id: req.params.id
+        });
+        Catalog.findByIdAndUpdate(req.params.id, catalog, {}, (err, updatedCatalog) => {
+            if(err) {
+                return next(err);
+            }
+            res.redirect('/inventory/catalog/' + req.params.id);
+        });
+    }
+]

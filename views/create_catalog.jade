@@ -2,7 +2,7 @@ extends layout
 
 block content 
   div 
-    p Create catalog
+    p #{catalog == undefined ? "Create catalog" : catalog.title}
 
     form(method='POST' action='')
       div.form
@@ -19,6 +19,5 @@ block content
             type='textarea'
             placeholder='Catalog description'
             name='catalog_description'
-            value=(catalog==undefined ? '' : catalog.catalog_description)
-        )
+        ) #{catalog==undefined ? '' : catalog.catalog_description}
       button.btn(type='submit') Submit

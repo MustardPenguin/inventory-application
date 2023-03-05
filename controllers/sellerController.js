@@ -3,6 +3,8 @@ const Product = require("../models/product");
 
 const { body, validationResult } = require('express-validator');
 const async = require('async');
+const seller = require("../models/seller");
+const { DateTime } = require('luxon');
 
 exports.sellers = (req, res, next) => {
 
@@ -139,3 +141,65 @@ exports.seller_delete_post = (req, res, next) => {
         }
     );
 }
+
+exports.seller_update = (req, res, next) => {
+    Seller.findById(req.params.id).exec(function(err, results) {
+        if(err) {
+            return next(err);
+        }
+        if(results == null) {
+            const error = new Error('Seller not found');
+            error.status = 404;
+            return next(error);
+        }
+        
+        const formatted_date = results.established ? results.established.toISOString().split('T')[0] : null;
+        res.render('create_seller', {
+            title: "Update seller",
+            seller: {
+                seller_name: results.name,
+                seller_description: results.description,
+                seller_established: formatted_date
+            },
+        });
+    });
+}
+
+exports.seller_update_post = [
+    body('seller_name', 'Name must not be empty')
+      .trim()
+      .escape()
+      .isLength({ min: 1 }),
+    body('seller_description')
+      .trim()
+      .escape()
+      .optional({ checkFalsy: true }),
+    body('seller_established')
+      .optional({ checkFalsy: true })
+      .isISO8601()
+      .toDate(),
+    (req, res, next) => {
+        const errors = validationResult(body);
+
+        if(!errors.isEmpty()) {
+            res.render("create_seller", {
+                seller: req.body,
+                errors: errors.array()
+            });
+            return;
+        }
+        const seller = new Seller({
+            name: req.body.seller_name,
+            description: req.body.seller_description,
+            established: req.body.seller_established,
+            _id: req.params.id
+        });
+
+        Seller.findByIdAndUpdate(req.params.id, seller, {}, (err) => {
+            if(err) {
+                return next(err);
+            }
+            res.redirect('/inventory/seller/' + req.params.id);
+        });
+    }
+];
